@@ -12,7 +12,7 @@ async function handle(req: VercelRequest, res: VercelResponse, attempt: number =
 
     return res.json(documents);
   } catch (error) {
-    if (String(error).includes("tlsv1") && attempt < 5) {
+    if (attempt < 5) {
       return await handle(req, res, attempt + 1);
     }
     console.error("Database connection error:", error);
