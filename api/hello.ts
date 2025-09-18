@@ -3,6 +3,9 @@ import { withClient } from "../mongodb";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
+    console.dir(
+      process.versions, { depth: Infinity, }
+    );
     const documents = await withClient(async (client) => {
       const db = client.db("sample_restaurants");
       const collection = db.collection("neighborhoods");
