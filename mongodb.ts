@@ -4,12 +4,12 @@ import { attachDatabasePool } from "@vercel/functions";
 const uri = process.env.MONGODB_URI!;
 const options: MongoClientOptions = {
   maxIdleTimeMS: 5000,
-  timeoutMS: 5000
+  // timeoutMS: 5000
 };
 
 let client: MongoClient = new MongoClient(uri, options);
 // Attach the client to ensure proper cleanup on function suspension
-// attachDatabasePool(client);
+attachDatabasePool(client);
 
 
 export async function withClient<T>(callback: (client: MongoClient) => Promise<T>): Promise<T> {
