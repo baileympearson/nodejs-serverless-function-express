@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { withClient } from "../mongodb";
 
+const MAX_RETRIES = 5;
 async function handle(req: VercelRequest, res: VercelResponse, attempt: number = 0) {
   try {
     const documents = await withClient(async (client) => {
@@ -11,7 +12,7 @@ async function handle(req: VercelRequest, res: VercelResponse, attempt: number =
 
     return res.json(documents);
   } catch (error) {
-    if (String(error).includes("tlsv1") && attempt < 1) {
+    if (String(error).includes("tlsv1") && attempt < 5) {
       return await handle(req, res, attempt + 1);
     }
     console.error("Database connection error:", error);
