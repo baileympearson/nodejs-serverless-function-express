@@ -13,6 +13,7 @@ async function handle(req: VercelRequest, res: VercelResponse, attempt: number =
     return res.json(documents);
   } catch (error) {
     if (attempt < 5) {
+      console.error('retrying after error: ', error);
       return await handle(req, res, attempt + 1);
     }
     console.error("Database connection error:", error);
