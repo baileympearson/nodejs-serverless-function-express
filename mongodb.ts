@@ -9,7 +9,8 @@ const options: MongoClientOptions = {
 
 let client: MongoClient = new MongoClient(uri, options);
 // Attach the client to ensure proper cleanup on function suspension
-attachDatabasePool(client);
+// attachDatabasePool(client);
+
 
 export async function withClient<T>(callback: (client: MongoClient) => Promise<T>): Promise<T> {
   return await callback(client);
