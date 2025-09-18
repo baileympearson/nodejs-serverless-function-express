@@ -4,6 +4,7 @@ import { attachDatabasePool } from "@vercel/functions";
 const uri = process.env.MONGODB_URI!;
 const options: MongoClientOptions = {
   maxIdleTimeMS: 5000,
+  maxPoolSize: 5,
   retryReads: true
 };
 
